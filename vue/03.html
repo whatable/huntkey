@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="vue_2.5.16.js"></script>
+	<title>方法和事件处理器</title>
+	<style type="text/css">
+		.class-out{}
+		.class-over{background-color: #def}
+	</style>
+</head>
+<body>
+
+	<div id="v">
+		<p v-on:mouseover="mover" v-on:mouseout="mout" v-bind:class="classObj">{{tip}}</p>
+	</div>
+
+
+
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#v',
+			data: {
+				tip: '提示信息',
+				tipBackup: '',
+				classObj: 'class-out'
+			},
+			methods: {
+				mover: function() {
+					this.tipBackup = this.tip
+					this.tip = '鼠标进入'
+					this.classObj = 'class-over'
+				},
+				mout: function() {
+					this.tip = this.tipBackup
+					this.classObj = 'class-out'
+				}
+			}
+		})
+	</script>
+</body>
+</html>

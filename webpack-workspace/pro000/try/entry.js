@@ -1,0 +1,1 @@
+document.write('Hello!（来自源文件entry.js，但会被编译为bundle.js）');

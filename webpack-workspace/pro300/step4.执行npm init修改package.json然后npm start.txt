@@ -1,0 +1,70 @@
+用npm init命令生成package.json
+
+然后要修改这个package.json
+其中
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+加上 "start": "webpack"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  }
+-------------------------------------------------------------
+
+
+
+D:\webpack-workspace\pro300>npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (pro300)
+version: (1.0.0)
+description:
+entry point: (bundle.js)
+test command:
+git repository:
+keywords:
+author:
+license: (ISC)
+About to write to D:\webpack-workspace\pro300\package.json:
+
+{
+  "name": "pro300",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+
+Is this ok? (yes) yes
+
+
+
+#### 修改package.json之后，用npm start命令即可自动webpack编译打包
+
+
+D:\webpack-workspace\pro300>npm start
+
+> pro300@1.0.0 start D:\webpack-workspace\pro300
+> webpack
+
+Hash: cdf37df1bf51fb4b677f
+Version: webpack 3.10.0
+Time: 74ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  2.86 kB       0  [emitted]  main
+   [0] ./entry.js 39 bytes {0} [built]
+   [1] ./module.js 269 bytes {0} [built]

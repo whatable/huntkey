@@ -1,0 +1,13 @@
+先用cnpm install安装vue和vue-cli
+	cnpm install vue
+	cnpm install --global vue-cli
+	
+有了cli就用vue初始化一个项目模板
+	vue init webpack PROJECT_NAME
+
+进入项目目录，用npm install做一下依赖安装
+	cd PROJECT_NAME
+	cnpm install
+
+启动项目
+	cnpm run dev

@@ -1,0 +1,7 @@
+D:\webpack-workspace\pro000>webpack entry.js bundle.js
+Hash: 68f5c03c822790b8efbc
+Version: webpack 3.10.0
+Time: 63ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  2.53 kB       0  [emitted]  main
+   [0] ./entry.js 56 bytes {0} [built]

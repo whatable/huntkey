@@ -1,0 +1,32 @@
+ssh -t -t EDM@10.3.98.154 > /dev/null 2>&1 << remotessh
+cd /home/EDM/bizInformation/back-end
+./kill.sh
+sleep 1
+rm -rf *.log *.jar *.out
+exit
+remotessh
+
+####编译完成后，修改jar包名字，方便保存和脚本读取
+cd ${WORKSPACE}/RxBiz_BA_Client/target/
+mv *.jar information-client.jar
+####传输jar包到154运行环境
+scp *.jar EDM@10.3.98.154:/home/EDM/bizInformation/back-end
+####复制jar包到归档文件夹，其中/home/EDM/bizInformation这一层文件夹请提前手工创建
+sleep 1
+
+####编译完成后，修改jar包名字，方便保存和脚本读取
+cd ${WORKSPACE}/RxBiz_BA_Provider/target/
+mv *.jar information-provider.jar
+####传输jar包到154运行环境
+scp *.jar EDM@10.3.98.154:/home/EDM/bizInformation/back-end
+####复制jar包到归档文件夹，其中/home/EDM/bizInformation这一层文件夹请提前手工创建
+
+
+####远程执行命令，154上面后端代码开始运行
+ssh -t -t EDM@10.3.98.154 > /dev/null 2>&1 << remotessh
+cd /home/EDM/bizInformation/back-end
+chmod +x information-client.jar
+chmod +x information-provider.jar
+./start.sh
+exit
+remotessh

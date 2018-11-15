@@ -1,0 +1,26 @@
+环境
+	安装node.js，测试node -v
+	安装cnpm，npm install cnpm -g --registry=https://registry.npm.taobao.org，测试cnpm -v
+	安装vue.js，cnpm install vue，测试cnpm vue -V？？？？
+	安装vue/cli脚手架，cnpm install --global vue-cli
+
+项目
+	创建项目，vue init project1
+	引入依赖，cd project1，cnpm install
+	启动，cnpm start
+	
+	
+	
+
+	
+	
+默认构造器，Vue根实例var vm = new Vue({/*选项*/});
+	选项:=数据、模板、挂载元素、方法、生命周期钩子等
+	new Vue({data:...});
+扩展构造器，Vue组件其实都是被扩展的Vue实例，var ext = Vue.extend({/*扩展选项*/});
+
+Vue实例化时会代理其data对象里的所有属性（实例化以后不再代理）
+var d = {a:1}
+var vm = new Vue({data:d})
+vm.a = 2 // data.a -> 2
+data.a =3 // vm.a -> 3

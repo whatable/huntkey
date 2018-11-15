@@ -1,0 +1,65 @@
+jTopo
+Raphael 
+ctopo
+	http://www.open-open.com/lib/view/open1429836598229.html
+
+iTopoview(SWING)
+
+--------------------------------------d
+
+协议的数据主要分为四类：
+	离散量输入Discretes Input——开入，开关输入信号（遥信）
+	线圈状态Coils——开出，开关输出信号（遥控）
+	输入寄存器Input Registers——只读的模拟量（遥测）
+	保持寄存器Holding Registers——可读可写的模拟量（遥调）
+
+“线圈”就是开关输出信号的意思。
+
+离散量、开关量、数字量都是对同一类型信号的不同说法，0表示断开，1表示接通，在PLC和类似控制设备中，都是一种布尔型的变量
+
+Modbus 是一个请求/应答协议。也叫做Slave和Master与Server和Client。同一种设备在不同领域的不同叫法。
+Slave：工业自动化用语；响应请求；
+Master：工业自动化用语；发送请求；
+Server：IT用语；响应请求；
+Client：IT用语；发送请求；
+在Modbus中，Slave和Server意思相同，Master和Client意思相同。
+
+Modbus有下列三种通信方式：  
+1.以太网，对应的通信模式是MODBUS TCP。
+2.异步串行传输（各种介质如有线RS-232-/422/485/；光纤、无线等），对应的通信模式是MODBUS RTU或MODBUS ASCII。
+3.高速令牌传递网络，对应的通信模式是Modbus PLUS。
+
+请求报文案例：
+	主站向从站发送请求报文：01 03 00 01 00 02 95 CB
+	01代表设备地址 
+	03代表功能码（读取保存寄存器的值） 
+	00 01代表采集点对应的寄存器号
+	00 02代表读取两个连续寄存器的值
+	95 CB代表01 03 00 01 00 02计算所得的CRC校验值 
+
+	从站向主站放回的数据报文：01 03 04 00 00 00 00 FA 33 
+	01代表设备地址 
+	03代表功能码（读取保存寄存器的值）
+	04代表设备返回的数据个数（单位为字节）
+	00 00 00 00代表为数据返回的连续两个寄电器的数据
+	FA 33代表01 03 04 00 00 00 00计算所得的CRC校验码
+
+现有的（熟悉的）modbus client是基于什么语言？如果是java，是否用了第三方工具包？用的哪个？是否有范例？
+农业和环境物联网的场景下，基于Modbus的传感器数据读取，拓扑结构是什么样？主要的交互过程是什么？对应报文是哪几类？
+
+
+b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 100)
+	.childHandler(new Handler());
+
+b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 100)
+	.handler(new LoggingHandler(LogLevel.INFO)).childHandler(new Handler());
+
+b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 100)
+	.handler(new LoggingHandler(LogLevel.INFO)).childHandler(new ChannelInitializer<SocketChannel>() {
+		@Override
+		public void initChannel(SocketChannel ch) throws Exception {
+			ch.pipeline().addLast(
+					// new LoggingHandler(LogLevel.INFO),
+					new Handler());
+		}
+	});

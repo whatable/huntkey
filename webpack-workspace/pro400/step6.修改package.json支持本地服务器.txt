@@ -1,0 +1,21 @@
+修改package.json
+
+
+此前增加了webpack配置，是这样的
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  }
+
+继续增加配置如下：
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "server": "webpack-dev-server --open"
+  }
+
+
+另外还要注意，在用npm install命令安装本地服务器期间，package.json还被自动修改过，增加了devDependencies项：
+  "devDependencies": {
+    "webpack-dev-server": "^2.11.1"
+  }

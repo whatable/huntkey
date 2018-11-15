@@ -1,0 +1,3 @@
+module.js主要提供了一个可供require的module
+目前这个module很简单，仅仅是输出一个字串
+接下来module.js将会供entry.js引入

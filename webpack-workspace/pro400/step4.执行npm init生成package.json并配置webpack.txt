@@ -1,0 +1,13 @@
+用npm init命令生成package.json
+
+修改这个package.json以支持webpack打包
+
+其中
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+改为（增加"start": "webpack"）
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  }

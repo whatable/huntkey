@@ -1,0 +1,4 @@
+最简单的webpack编译
+暂不涉及到自定义模块module
+
+注意，因为已经做过全局的webpack install -g webpack（具体保存位置应该是在[user_dir]\AppData\Roaming\npm\node_modules\webpack），所以这里不需要引入webpack依赖即可直接编译。若未做过全局install，那么需要先做，或者也可以只在当前项目引入依赖，命令是npm install --save-dev webpack，则会在本项目目录下创建node_modules\子目录并引入约250个依赖

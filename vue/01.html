@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="vue_2.5.16.js"></script>
+	<title>Vue基础知识-01：入门</title>
+</head>
+<body>
+
+	<div id="v">
+
+		<h2>文本插值</h2>
+		<p><span style="color:red">{{str}}</span> &lt;&lt;这个显示文本是动态插值的，修改数据模型中的变量str（在控制台数据vm.str='xxxx'）就可以改变显示。并且，这个文本是和下面“双向绑定v-model”一节的输入框值绑定的，在输入框里输入会实时改变str的值</p>
+
+
+		<h2>用户输入</h2>
+		<p>
+			<button v-on:click="reverse">倒转文本（注意上方和下方文本）</button>
+			<button @click="reverse">倒转文本（同样的功能，v-on:click可以缩写为@click）</button>
+		</p>
+
+		<h2>双向绑定v-model</h2>
+		<p><input type="text" v-model="str" style="color:red"><input type="text" v-model="str" style="color:red">（改变输入，两个输入框互相影响，并且会改变上方的显示文本因为文本也绑定了str变量，同时，点击上面的倒转按钮也会改变str）</p>
+
+
+		<h2>数据绑定</h2>
+		<p><span v-bind:title="tip">鼠标悬停查看动态绑定的提示信息（v-bind:title）</span></p>
+		<p><span :title="tip">鼠标悬停查看动态绑定的提示信息（用了:title，这是v-bind:title的缩写）</span></p>
+
+
+		<h2>条件和循环</h2>
+		<p>下面的列表，是根据数据模型arr循环生成的，改变数据的属性就能动态改变列表（控制台输入vm.arr[1].deleted=false）</p>
+		<ol>
+			<li v-for="a in arr" >
+				{{a.text}}
+				<span v-if="a.deleted">（已删除）<button v-on:click="a.deleted=false">恢复</button></span>
+				<button v-if="!a.deleted" v-on:click="a.deleted=true" style="color: red">删除</button>
+			</li>
+		</ol>
+
+		<h2>生命周期和钩子</h2>
+		<p>注意console.log</p>
+	</div>
+
+	<script>
+		var c = 0;
+		var vm = new Vue({
+			el: '#v',
+			data: {
+				str: 'hello world!',
+				tip: '页面加载于' + new Date().toLocaleString(),
+				arr: [
+					{text:'A', deleted: false},
+					{text:'B', deleted: true},
+					{text:'C', deleted: false},
+					{text:'D', deleted: false}
+				]
+			},
+			methods: {
+				reverse: function() {
+					this.str = this.str.split('').reverse().join('');
+				}
+			},
+			beforeCreate: function() {
+				console.log('====>> beforeCreate #' + (c++) + '@' + new Date().toLocaleString());
+			},
+			created: function() {
+				console.log('====>> created #' + (c++) + '@' + new Date().toLocaleString());
+			},
+			mounted: function() {
+				console.log('====>> mounted #' + (c++) + '@' + new Date().toLocaleString());
+			},
+			updated: function() {
+				console.log('====>> updated #' + (c++) + '@' + new Date().toLocaleString());
+			},
+			destroyed: function() {
+				console.log('====>> destroyed #' + (c++) + '@' + new Date().toLocaleString());
+			}
+		})
+	</script>
+</body>
+</html>

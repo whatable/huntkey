@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="vue_2.5.16.js"></script>
+	<title>Vue基础知识-02：组件</title>
+</head>
+<body>
+	<div id="v">
+		<h3>最简单组件</h3>
+		<p>
+			DOM写：{{html1}} （注意这里利用了“Mustache”语法来方便地输出纯HTML），
+			然后定义这个组件 Vue.component('<span style="color:red">my-component</span>',{ <span style="font-weight: bold">template</span> : '&lt;button ...&gt;'})，
+			下面就是效果
+		</p>
+		<my-component></my-component>
+
+		<h3>复杂循环组件</h3>
+		<user 
+			v-for="u in users" 
+			v-bind:name="u.name" 
+			v-bind:age="u.age" 
+			v-bind:underage="u.age<18"
+			v-bind:key="u.id">
+		</user>
+	</div>
+
+	<script type="text/javascript">
+
+		// 最简单的Vue组件，只定义了DOM模板
+		Vue.component('my-component', {
+			template: '<button style="background-color:#ffd3d3">这是个Vue组件</button>'
+		});
+
+		// 稍复杂的Vue组件，定义了DOM模板和数据结构
+		Vue.component('user', {
+			props: ['name', 'age', 'underage'],
+			template: '<li>{{name}} ( {{age}}<span v-if="underage">*</span> )</li>'
+		})
+
+		new Vue({
+			el: '#v',
+			data: {
+				users: [
+					{id: 0, name: 'Joe', age: 34},
+					{id: 1, name: 'Alisha', age: 23},
+					{id: 2, name: 'Tommy', age: 29},
+					{id: 3, name: 'Kage', age: 17}
+				],
+				html1:'<my-component></my-component>',
+				html2::'<button style="background-color:#ffd3d3">这是个Vue组件</button>'
+			}
+		})
+	</script>
+
+	
+</body>
+</html>

@@ -1,0 +1,143 @@
+公司不能分配IP，不能桥接，只能用NAT网络
+安装好以后网络不通
+备份并修改/etc/sysconfig/network-scripts/ifcfg-eth0
+
+网络环境如下：
+VMnet8, NAT
+子网地址192.168.75.0
+网关地址192.168.75.2
+主机地址192.168.75.1
+
+修改配置内容为：
+DEVICE=eth0 
+HWADDR=00:0C:29:8E:B2:4D 
+TYPE=Ethernet 
+UUID=0675948a-b96c-497d-8945-2e53b875e44f 
+ONBOOT=yes 
+NM_CONTROLLED=yes 
+BOOTPROTO=static
+
+IPADDR=192.168.75.75
+NETMASK=255.255.255.0 
+GATEWAY=192.168.75.2
+DNS1=8.8.8.8 
+DNS2=4.4.4.4
+
+【安装】MySQL
+http://www.linuxidc.com/Linux/2015-07/120234.htm
+
+[jiangshaohui@centos ~]$ sudo service mysqld start
+初始化 MySQL 数据库： WARNING: The host 'centos.rx' could not be looked up with resolveip.
+This probably means that your libc libraries are not 100 % compatible
+with this binary MySQL version. The MySQL daemon, mysqld, should work
+normally with the exception that host name resolving will not work.
+This means that you should use IP addresses instead of hostnames
+when specifying MySQL privileges !
+Installing MySQL system tables...
+OK
+Filling help tables...
+OK
+
+To start mysqld at boot time you have to copy
+support-files/mysql.server to the right place for your system
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+/usr/bin/mysqladmin -u root password 'new-password'
+/usr/bin/mysqladmin -u root -h centos.rx password 'new-password'
+
+Alternatively you can run:
+/usr/bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+You can start the MySQL daemon with:
+cd /usr ; /usr/bin/mysqld_safe &
+
+You can test the MySQL daemon with mysql-test-run.pl
+cd /usr/mysql-test ; perl mysql-test-run.pl
+
+Please report any problems with the /usr/bin/mysqlbug script!
+
+                                                           [确定]
+正在启动 mysqld：                                          [确定]
+
+
+
+
+mysql> create user 'rx'@'%' identified by '123456';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select host,user,password from user;
++-----------+------+-------------------------------------------+
+| host      | user | password                                  |
++-----------+------+-------------------------------------------+
+| localhost | root | *8986216AC4C12139A5B7361ABC55E8106DE09F36 |
+| centos.rx | root |                                           |
+| 127.0.0.1 | root |                                           |
+| localhost |      |                                           |
+| centos.rx |      |                                           |
+| %         | rx   | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
++-----------+------+-------------------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> create database rx  default character set utf8 collate utf8_general_ci;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| rx                 |
+| test               |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> grant all privileges on rx.* to 'rx'@'%' identified by '123456' with grant option;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select user,host,password from user;
++------+-----------+-------------------------------------------+
+| user | host      | password                                  |
++------+-----------+-------------------------------------------+
+| root | localhost | *8986216AC4C12139A5B7361ABC55E8106DE09F36 |
+| root | centos.rx |                                           |
+| root | 127.0.0.1 |                                           |
+|      | localhost |                                           |
+|      | centos.rx |                                           |
+| rx   | %         | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
++------+-----------+-------------------------------------------+
+6 rows in set (0.00 sec)
+
+
+mysql> grant all privileges on rx.* to 'rx'@'localhost' identified by '123456' with grant option;
+Query OK, 0 rows affected (0.00 sec)
+mysql> use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select user,host,password from user;
++------+-----------+-------------------------------------------+
+| user | host      | password                                  |
++------+-----------+-------------------------------------------+
+| root | localhost | *8986216AC4C12139A5B7361ABC55E8106DE09F36 |
+| root | centos.rx |                                           |
+| root | 127.0.0.1 |                                           |
+|      | localhost |                                           |
+|      | centos.rx |                                           |
+| rx   | %         | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
+| rx   | localhost | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
++------+-----------+-------------------------------------------+
+7 rows in set (0.01 sec)
+

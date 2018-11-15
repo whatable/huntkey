@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>iView 01</title>
+
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+</head>
+<body>
+<div id="app">	<Row>    <i-button @click="show">Click me!</i-button>    <Modal v-model="visible" title="Welcome">Welcome to iView</Modal></Row>
+	<!-- iview的栅格化，iview组件非render模式下部分组件需加入前缀 -->
+<Row>	     <i-col span="12 text-center">col-12</i-col>        <i-col span="12">col-12</i-col></Row></div><script>    new Vue({        el: '#app',        data: {            visible: false        },        methods: {            show: function () {                this.visible = true;            }        }    })  </script>
+
+</body>
+</html>

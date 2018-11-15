@@ -1,0 +1,13 @@
+spring-cloud微服务项目
+	服务注册/发现
+	服务调用
+	oAuth2.0
+	熔断
+
+spring-data-jpa项目
+	事务处理
+	复杂查询
+
+spring-boot项目
+	redis
+	noSQL

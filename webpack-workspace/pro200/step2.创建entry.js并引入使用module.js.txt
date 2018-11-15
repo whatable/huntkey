@@ -1,0 +1,15 @@
+创建entry.js作为主源文件，编辑其内容，内容主要是一行document.write代码，并且require了module.js。
+编辑完成后，用webpack命令编译entry.js生成bundle.js
+
+注意，因为entry.js引用了module.js，所以编译过程中会同时编译两个js文件，参见下面的执行过程信息
+---------------------------------------------------------------
+
+
+D:\webpack-workspace\pro100>webpack entry.js bundle.js
+Hash: b7c6a71596aa0562e0b8
+Version: webpack 3.10.0
+Time: 72ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  2.71 kB       0  [emitted]  main
+   [0] ./entry.js 39 bytes {0} [built]
+   [1] ./module.js 119 bytes {0} [built]

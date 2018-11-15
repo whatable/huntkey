@@ -1,0 +1,79 @@
+mysql> create user 'rx'@'%' identified by '123456';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select user,host,authentication_string from user;
++---------------+-----------+-------------------------------------------+
+| user          | host      | authentication_string                     |
++---------------+-----------+-------------------------------------------+
+| root          | localhost | *8986216AC4C12139A5B7361ABC55E8106DE09F36 |
+| mysql.session | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| mysql.sys     | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| rx            | %         | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
++---------------+-----------+-------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database if not exists db_rx default charset utf8 collate utf8_general_ci;
+Query OK, 1 row affected (2.30 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| db_rx              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> grant all privileges on db_rx.* to 'rx'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set global time_zone='+8:00';
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+mysql> drop table if exists tb_user;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> create table if not exists tb_user(
+    -> id int unsigned auto_increment,
+    -> login_name varchar(32) not null,
+    -> password varchar(128) not null,
+    -> name varchar(32),
+    -> gender tinyint(1),
+    -> birthday date,
+    -> primary key (id)
+    -> )engine=InnoDB default charset=utf8;
+Query OK, 0 rows affected (2.72 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_db_rx |
++-----------------+
+| tb_user         |
++-----------------+
+1 row in set (0.00 sec)
+
+
+mysql> insert into tb_user (login_name,password)values('admin','123456');
+Query OK, 1 row affected (2.38 sec)
+
+mysql> select * from tb_user;
++----+------------+----------+------+--------+----------+
+| id | login_name | password | name | gender | birthday |
++----+------------+----------+------+--------+----------+
+|  1 | admin      | 123456   | NULL |   NULL | NULL     |
++----+------------+----------+------+--------+----------+
+1 row in set (0.00 sec)
+
+
+
+
+
+

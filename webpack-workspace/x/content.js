@@ -1,0 +1,1 @@
+﻿module.exports = "现在的内容来自于content.js，这是一个module。";

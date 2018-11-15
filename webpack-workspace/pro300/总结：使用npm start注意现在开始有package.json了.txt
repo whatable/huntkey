@@ -1,0 +1,7 @@
+重点是开始使用npm了
+
+首先npm init生成package.json
+然后修改package.json，设定启动webpack
+然后可以用npm start来启动webpack打包，如此一来不需要手动执行webpack了
+
+注意现在开始有package.json了，在此之前不需要。也就是说package.json是npm使用的，而不是webpack使用的。
